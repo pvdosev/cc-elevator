@@ -2,7 +2,7 @@ peripheral.find("modem", rednet.open)
 
 rednet.host("elevator", "controller")
 print("registered host")
--- total number of floors that the elevator uses
+-- total number of floors that the elevator services
 local floors = 3
 
 -- the sides that have a redstone connection to
@@ -11,6 +11,5 @@ local clutchSide = "front"
 local gearshiftSide = "left"
 
 while true do
-    message = rednet.receive("elevator")
-    print("new message: ", message)
+    local id, message = rednet.receive("elevator") 
 end
