@@ -2,6 +2,7 @@ peripheral.find("modem", rednet.open)
 
 local controllerID = nil
 
+-- CONFIG --
 -- set this to the floor the computer will be working on
 -- 1 is the lowest, going up from there
 local floor = 1
@@ -14,6 +15,7 @@ local contactSide = "back"
 -- they're expected in the same order as https://tweaked.cc/module/colors.html
 -- white - 1st floor, orange - 2nd floor, magenta - 3rd floor, etc. 
 local buttonSide = "top"
+-- END CONFIG --
 
 -- wait for a controller on the network before doing anything
 repeat 
@@ -40,7 +42,7 @@ while true do
     end
     if buttonState ~= 0 then
         -- if multiple buttons are pushed at once, send the highest button value
-        -- colors.toBlit rounds down the bitmask to a hex value
+        -- colors.toBlit rounds down the bitmask to a hex value, which we convert to decimal
         rednet.send(controllerID, { "button", floor, tonumber(colors.toBlit(buttonState), 16) + 1 }, "elevator")
     end
     oldContactState = contactState
